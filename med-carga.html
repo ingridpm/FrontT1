@@ -13,6 +13,7 @@
         crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
     <script>
         var cargarArchivo = function (event) {
             var archivo = event.target;
@@ -28,9 +29,17 @@
                     headers: { 'Content-Type': 'application/json' }
                 })
                 console.log(respuesta)
-                alert(respuesta)
+                alert("Cargado exitosamente")
+                window.location.href = "med-carga.html"
             };
             reader.readAsText(archivo.files[0])
+        }
+
+        function crearPDF(){
+            var pdf = new jsPDF();
+            pdf.fromHTML($('#tabla2').get(0),10,10,{'width':180});
+            pdf.autoPrint();
+            pdf.output("dataurlnewwindow")
         }
     </script>
 </head>
@@ -157,6 +166,10 @@
                     <div class="table-responsive" id="tabla">
 
                     </div>
+                    <a class="btn btn-primary" onclick="crearPDF()">Generar PDF</a>
+                    <div class="table-responsive" id="tabla2" style="visibility: hidden;">
+
+                    </div>
                 </div>
             </main>
             <script>
@@ -182,22 +195,30 @@
 </table>`
                 let xhr = new XMLHttpRequest();
                 var ruta = "http://localhost:3000/obtener_medicamentos";
-                xhr.open('GET',ruta);
+                xhr.open('GET', ruta);
                 xhr.send()
                 xhr.onreadystatechange = (e) => {
                     var medicamentos = JSON.parse(xhr.responseText);
                     var cuerpo = "";
-                    for(var i = 0; i<medicamentos.length; i++){
+                    var cuerpo2 = "";
+                    for (var i = 0; i < medicamentos.length; i++) {
                         cuerpo += '<tr>';
+                        cuerpo2 += '<tr>';
                         cuerpo += '<td>' + medicamentos[i].nombre + '</td>';
+                        cuerpo2 += '<td>' + medicamentos[i].nombre + '</td>';
                         cuerpo += '<td>' + medicamentos[i].precio + '</td>';
+                        cuerpo2 += '<td>' + medicamentos[i].precio + '</td>';
                         cuerpo += '<td>' + medicamentos[i].descripcion + '</td>';
+                        cuerpo2 += '<td>' + medicamentos[i].descripcion + '</td>';
                         cuerpo += '<td>' + medicamentos[i].cantidad + '</td>';
-                        cuerpo += '<td><button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button></td>';
-                        cuerpo += '<td><button type="button" class="btn btn-danger">Eliminar</button></td>';
+                        cuerpo2 += '<td>' + medicamentos[i].cantidad + '</td>';
+                        cuerpo += '<td><a type="button" class="btn btn-success" href="edit-med.html?indice=' + i + '"><i class="fas fa-edit"></i></a></td>';
+                        cuerpo += '<td><a type="button" class="btn btn-danger" href="Eliminar.html?indice=' + i + '">Eliminar</a></td>';
                         cuerpo += '</tr>';
+                        cuerpo2 += '</tr>';
                     }
-                    document.getElementById("tabla").innerHTML = antes+cuerpo+despues;
+                    document.getElementById("tabla").innerHTML = antes + cuerpo + despues;
+                    document.getElementById("tabla2").innerHTML = antes + cuerpo2 + despues;
                 }
             </script>
             <footer class="py-4 bg-light mt-auto">

@@ -1,0 +1,24 @@
+<html>
+<head>
+    <script>
+        function getParametro(nombre) {
+            return (window.location.search.match(new RegExp('[?&]' + nombre + '=([^&]+)')) || [, null])[1];
+        }
+
+        eliminar();
+
+        async function eliminar(){
+            let json = JSON.stringify({indice: getParametro("indice")})
+            let respuesta = await fetch("http://localhost:3000/eliminar_medicamento",{
+                method: 'POST',
+                body: json,
+                headers: {'Content-Type': 'application/json'}
+            }).catch(function(error){
+                console.log(error)
+            });
+            window.location.href = "med-carga.html"
+        }
+    </script>
+</head>
+
+</html>
