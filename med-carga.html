@@ -23,7 +23,7 @@
                 document.getElementById("contenido").innerHTML = contenido
                 envio = JSON.stringify({ contenido: contenido });
                 console.log(envio)
-                let respuesta = fetch("http://localhost:3000/cargar_medicamentos", {
+                let respuesta = fetch("https://proyecto2-t1.herokuapp.com/cargar_medicamentos", {
                     method: 'POST',
                     body: envio,
                     headers: { 'Content-Type': 'application/json' }
@@ -194,7 +194,7 @@
                 var despues = `</tbody>
 </table>`
                 let xhr = new XMLHttpRequest();
-                var ruta = "http://localhost:3000/obtener_medicamentos";
+                var ruta = "https://proyecto2-t1.herokuapp.com/obtener_medicamentos";
                 xhr.open('GET', ruta);
                 xhr.send()
                 xhr.onreadystatechange = (e) => {

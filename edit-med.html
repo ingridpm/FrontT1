@@ -77,7 +77,7 @@
                     descripcion: document.getElementById("descripcion").value,
                     cantidad: document.getElementById("cantidad").value
                 })
-                let respuesta = await fetch("http://localhost:3000/editar_medicamento", {
+                let respuesta = await fetch("https://proyecto2-t1.herokuapp.com/editar_medicamento", {
                     method: 'POST',
                     body: json,
                     headers: { 'Content-Type': 'application/json' }
