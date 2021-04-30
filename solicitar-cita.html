@@ -165,9 +165,11 @@
             <script>
                 const url = 'https://proyecto2-t1.herokuapp.com/';
                 const ruta = url + "tiene_cita?id=" + getParametro("id");
+                alert(ruta)
                 fetch(ruta)
                     .then((resp) => resp.json())
                     .then(function (data) {
+                        console.log(data)
                         if (data.estado == 1) {
                             document.getElementById("solicitar").innerHTML = `<div class="alert alert-danger" role="alert">
   Usted ya tiene una cita en estado pendiente o aceptada.
@@ -185,7 +187,7 @@
         <tr>
         <td>${data.fecha}</td>
         <td>${data.hora}</td>
-        <td>${data.estado}</td>
+        <td>${data.estado_cita}</td>
         <td>${data.doctor}</td>
         </tr>
     </tbody>
