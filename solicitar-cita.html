@@ -171,7 +171,26 @@
                         if (data.estado == 1) {
                             document.getElementById("solicitar").innerHTML = `<div class="alert alert-danger" role="alert">
   Usted ya tiene una cita en estado pendiente o aceptada.
-</div>`;
+</div>
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Estado</th>
+            <th>Doctor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>${data.fecha}</td>
+        <td>${data.hora}</td>
+        <td>${data.estado}</td>
+        <td>${data.doctor}</td>
+        </tr>
+    </tbody>
+</table>`;
+
                         }
                     }).catch(function (error) {
                         console.log(error);
